@@ -1,6 +1,6 @@
 import React from "react"
 // component imports
-import FilterCheckBoxes from "./filterCheckBoxes"
+import FilterCheckBoxes from "./FilterCheckBoxes"
 import Typography from '@mui/material/Typography';
 // router imports
 import { useOutletContext } from "react-router-dom";
