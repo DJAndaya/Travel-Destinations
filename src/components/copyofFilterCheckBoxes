@@ -1,0 +1,94 @@
+import React from "react"
+// material UI imports
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+// redux imports
+import { useSelector, useDispatch } from "react-redux"
+
+const FilterCheckBoxes = () => {
+
+  const filterCheckBoxesState = useSelector((state) => state.filterCheckBoxes)
+  console.log(filterCheckBoxesState.checkBoxShowPlanToVisit)
+  const dispatch = useDispatch()
+
+  const filterShowPlanToVisit = (event, checked) => {
+    let checkbox = event.target
+    // console.log(event.target.filterCheckBoxesState.checkBoxShowPlanToVisit)
+    // if (event.target.checked) checkbox=true
+    dispatch(filterShowPlanToVisit(checkbox))
+    // console.log(filterCheckBoxes)
+  };
+
+  const filterShowAlreadyVisited = (event) => {
+    dispatch(filterShowAlreadyVisited(event.target.checked))
+    // console.log(filterCheckBoxes)
+  };
+
+  const filterHideNoPlanToVisit = (event) => {
+    dispatch(filterHideNoPlanToVisit(event.target.checked))
+    // console.log(filterCheckBoxes)
+  };
+  
+  const filterHideAlreadyVisited = (event) => {
+    dispatch(filterHideAlreadyVisited(event.target.checked))
+    // console.log(filterCheckBoxes)
+  };
+
+  return (
+    
+    <FormGroup aria-label="position" row>
+      {/* {console.log(filterCheckBoxesState.checkBoxShowPlanToVisit)} */}
+      <FormControlLabel
+          value="start"
+          control={
+            <Checkbox
+            checked = {filterCheckBoxesState.checkBoxShowPlanToVisit}
+            onChange={filterShowPlanToVisit}
+            inputProps={{ 'aria-label': 'controlled' }}
+            />
+          }
+          label="Show only countries plan to visit"
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          value="start"
+          control={
+            <Checkbox
+            checked={filterCheckBoxesState.checkBoxShowAlreadyVisited}
+            onChange={filterShowAlreadyVisited}
+            inputProps={{ 'aria-label': 'controlled' }}
+            />
+          }
+          label="Show only countries visited"
+          labelPlacement="start"
+        />
+      <FormControlLabel
+          value="start"
+          control={
+            <Checkbox
+            checked={filterCheckBoxesState.checkBoxHideNoPlanToVisit}
+            onChange={filterHideNoPlanToVisit}
+            inputProps={{ 'aria-label': 'controlled' }}
+            />
+          }
+          label="Hide Countries with No Plans To Visit"
+          labelPlacement="start"
+        />
+      <FormControlLabel
+          value="start"
+          control={
+            <Checkbox
+              checked={filterCheckBoxesState.checkBoxHideAlreadyVisited}
+              onChange={filterHideAlreadyVisited}
+              inputProps={{ 'aria-label': 'controlled' }}
+            />
+          }
+          label="Hide Countries Already Visited"
+          labelPlacement="start"
+        />
+    </FormGroup>
+  );
+}
+
+export default FilterCheckBoxes

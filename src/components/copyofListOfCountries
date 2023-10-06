@@ -1,0 +1,69 @@
+import React, { useState, useEffect } from "react"
+// imports from material UI
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Unstable_Grid2';
+import CountryCards from "./CountryCards"
+import Divider from '@mui/material/Divider';
+// imports from redux
+import { useSelector } from "react-redux"
+// imports from made components
+import GridCountryCards from "./GridCountryCards";
+
+const ListOfCountries = ( props ) => {
+
+  const [formData, setFormData] = useState(null)
+
+  const favoriteCountries = useSelector((state) => {
+    return state.favoriteCountries
+  })
+
+  // console.log(favoriteCountries)
+  useEffect(()=> {
+
+    const getCountries = async () => {
+      try {
+        const response = await fetch(
+          "https://restcountries.com/v3.1/all"
+        )
+        let data = await response.json()
+        data.sort((a,b)=> a.name.common.localeCompare(b.name.common))
+        setFormData(data)
+        // console.log(formData)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getCountries()
+    // console.log(formData)
+  }, [])
+
+  if (!formData) {
+    return <div>...Loading</div>
+  }
+  
+  if (favoriteCountries.length === 0) {
+    return (
+      <>
+        <h1>Favorites</h1>
+        <h5>No Favorited Countries</h5>
+        <Divider />
+        <h1>Countries</h1>
+        <GridCountryCards formData={formData} />
+      </>
+    )
+  } else {
+    return (
+      <>
+        <h1>Favorites</h1>
+
+        <Divider />
+        <h1>Countries</h1>
+        <GridCountryCards formData={formData} />
+      </>
+    )
+  }
+}
+
+export default ListOfCountries
+
+{/* <CountryCards countries={countries} /> */}

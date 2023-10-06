@@ -1,0 +1,78 @@
+import React, { useState } from "react"
+// material UI imports
+import Button from '@mui/material/Button';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// redux imports
+import favoriteCountriesSlice from "../redux/favoriteCountriesSlice"; 
+import { useDispatch, useSelector } from "react-redux"
+
+const addCountryToFavorite = favoriteCountriesSlice.actions.addCountryToFavorite
+const removeCountryFromFavorite = favoriteCountriesSlice.actions.removeCountryFromFavorite
+
+const FavoriteButtonIcon = ({ country, favoriteCountry, setFavoriteCountry }) => {
+
+  // if (!icon) setIcon(<FavoriteBorderIcon />)
+  
+  const favoriteCountries = useSelector((state) => state.favoriteCountries)
+  // console.log(favoriteCountries)
+  const dispatch = useDispatch()
+  // console.log(country)
+
+  // const countryAlreadyFavorited = favoriteCountries.includes(country)
+  console.log(favoriteCountry)
+  // console.log(countryAlreadyFavorited)
+  // console.log(country)
+  const addCountryToFavoriteButton = (country) => {
+    // console.log(favoriteCountries)
+    // console.log(country)
+    
+    // const countryAlreadyFavorited = favoriteCountries.find((favorite) => favorite.name.common === country.name.common) !== undefined
+    
+    if (countryAlreadyFavorited) {
+      dispatch(addCountryToFavorite(country))
+      // setFavoriteCountry(true)
+    } else {
+      dispatch(removeCountryFromFavorite(country))
+      // setFavoriteCountry(false)
+    }
+    // favoriteCountry ? dispatch(addCountryToFavorite(country)) : dispatch(removeCountryFromFavorite(country))
+    // console.log(country)
+    // if (countryAlreadyFavorited) {
+    //   dispatch(addCountryToFavorite(country))
+    //   // console.log(countryAlreadyFavorited)
+    //   setIcon(<FavoriteIcon />)
+    //   // setInFavoriteList(true)
+    // } else {
+    //   dispatch(removeCountryFromFavorite(country))
+    //   setIcon(<FavoriteBorderIcon />)
+    //   // console.log(countryAlreadyFavorited)
+    //   // setInFavoriteList(false)
+    // }
+  }
+
+  if (favoriteCountry) {
+    return (
+      <Button size="small" onClick={()=> addCountryToFavoriteButton(country)}>
+        <FavoriteIcon />
+      </Button>
+    )
+  } else {
+    return (
+      <Button size="small" onClick={()=> addCountryToFavoriteButton(country)}>
+        <FavoriteBorderIcon />
+      </Button>
+    )
+  }
+
+}
+
+export default FavoriteButtonIcon
+
+
+/* NOTES FOR ERRORS
+
+- first button pressed does not change icon
+- after pressing an icon that has already changed, all of them get removed from favorite list and reset icon
+
+*/
