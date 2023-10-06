@@ -6,7 +6,7 @@ import countriesApi from "../redux/countriesApi";
 // component imports
 import GridCountryCards from "./GridCountryCards";
 import SearchBar from "./SearchBar";
-import FilterCheckBoxes from "./filterCheckBoxes.jsx"
+import FilterCheckBoxes from "./FilterCheckBoxes.jsx"
 // router imports
 import { useOutletContext } from "react-router-dom";
 
